@@ -1,0 +1,33 @@
+{
+  "name": "ampersand-calendar",
+  "version": "0.1.0",
+  "description": "Creates an SVG calendar using D3.",
+  "main": "ampersand-calendar.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git@github.com:helpdotcom/ampersand-calendar"
+  },
+  "keywords": [
+    "ampersand",
+    "d3",
+    "calendar",
+    "date",
+    "picker"
+  ],
+  "author": "Alexander Martin",
+  "license": "MIT",
+  "bugs": {
+    "url": "https://github.com/helpdotcom/ampersand-calendar/issues"
+  },
+  "homepage": "https://github.com/helpdotcom/ampersand-calendar",
+  "dependencies": {
+    "ampersand-state": "^4.4.4",
+    "ampersand-view": "^7.2.0",
+    "d3": "^3.5.3",
+    "lodash": "^3.1.0",
+    "moment": "^2.9.0"
+  }
+}
