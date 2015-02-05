@@ -50,7 +50,6 @@
             this.currentDates = this.createDateArray();
           }
         }
-        console.log(d);
       }.bind(this));
     },
     createDateArray: function() {
@@ -96,7 +95,7 @@
 
       weekday ++;
       month.add(1, 'M');
-      for (var j = 0; j < 7 - weekday; j++) {
+      for (var j = 0; j < (7 * (6 - week)) - weekday; j++) {
         dateMoment = moment(month).date(j + 1);
         selected = true;
 
@@ -110,8 +109,8 @@
           valid: false,
           date: dateMoment,
           selected: selected,
-          weekday: j + weekday,
-          week: week
+          weekday: (j + weekday) % 7,
+          week: week + Math.floor((j + weekday) / 7)
         };
 
         dates.push(data);
