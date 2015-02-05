@@ -7,9 +7,11 @@
   var AmpersandView = require('ampersand-view');
 
   var CalendarState = AmpersandState.extend({
-    session: {
+    props: {
       startDate: [ 'object', false, function() { return null; } ],
-      endDate: [ 'object', false, function() { return null; } ],
+      endDate: [ 'object', false, function() { return null; } ]
+    },
+    session: {
       current: [ 'object', false, function() { return moment(); } ],
       currentDates: 'array'
     },
