@@ -33,7 +33,7 @@
         if (d.valid) {
           var date = d.date;
           var now = moment();
-          if (date.diff(now, 'days') < 0 || date.isSame(now, 'day')) {
+          if (date.isBefore(now, 'days') || date.isSame(now, 'day')) {
             if (this.startDate === null || this.endDate !== null) {
               this.startDate = date;
               this.endDate = null;
@@ -73,12 +73,12 @@
         week = Math.floor(i / 7);
 
         selected = false;
-        var valid = i >= startDayOfMonth && (dateMoment.diff(now, 'days') < 0 || dateMoment.isSame(now, 'day'));
+        var valid = i >= startDayOfMonth && (dateMoment.isBefore(now, 'days') || dateMoment.isSame(now, 'day'));
 
         if (this.endDate !== null) {
-          selected = (this.startDate !== null && dateMoment.diff(this.startDate, 'days') >= 0) && dateMoment.diff(this.endDate, 'days') <= 0;
+          selected = (this.startDate !== null && !dateMoment.isBefore(this.startDate, 'days')) && !dateMoment.isAfter(this.endDate, 'days');
         } else {
-          selected = (this.startDate !== null && dateMoment.diff(this.startDate, 'days') === 0);
+          selected = (this.startDate !== null && dateMoment.isSame(this.startDate, 'days'));
         }
 
         data = {
@@ -99,9 +99,9 @@
         selected = true;
 
         if (this.endDate !== null) {
-          selected = (this.startDate !== null && dateMoment.diff(this.startDate, 'days') >= 0) && dateMoment.diff(this.endDate, 'days') <= 0;
+          selected = (this.startDate !== null && !dateMoment.isBefore(this.startDate, 'days')) && !dateMoment.isAfter(this.endDate, 'days');
         } else {
-          selected = (this.startDate !== null && dateMoment.diff(this.startDate, 'days') === 0);
+          selected = (this.startDate !== null && dateMoment.isSame(this.startDate, 'days'));
         }
 
         data = {
@@ -267,7 +267,7 @@
         .style('opacity', function(d) { return +d.selected; });
 
       weekdayContainers.select('rect.ampersand-calendar-weekday-selected')
-        .style('display', function(d) { return (d.selected && this.model.endDate !== null && this.model.endDate.diff(d.date, 'days') !== 0 && d.weekday !== 6) ? 'initial' : 'none'; }.bind(this));
+        .style('display', function(d) { return (d.selected && this.model.endDate !== null && !this.model.endDate.isSame(d.date, 'days') && d.weekday !== 6) ? 'initial' : 'none'; }.bind(this));
     },
     selectPreviousMonth: function() {
       this.model.selectPreviousMonth();
