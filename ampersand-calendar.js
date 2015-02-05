@@ -66,7 +66,7 @@
       var data;
       var selected;
       var dateMoment;
-      for (var i = 0; i < startDayOfMonth + lastDateOfMonth; i++) {
+      for (var i = 0; i < startDayOfMonth + lastDateOfMonth; i ++) {
         var date = i - startDayOfMonth + 1;
         dateMoment = moment(month).date(date);
         weekday = i % 7;
@@ -94,7 +94,7 @@
 
       weekday ++;
       month.add(1, 'M');
-      for (var j = 0; j < (7 * (6 - week)) - weekday; j++) {
+      for (var j = 0; j < (7 * (6 - week)) - weekday; j ++) {
         dateMoment = moment(month).date(j + 1);
         selected = true;
 
