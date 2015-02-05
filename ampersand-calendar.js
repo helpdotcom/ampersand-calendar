@@ -72,10 +72,8 @@
         weekday = i % 7;
         week = Math.floor(i / 7);
 
-        var valid = false;
         selected = false;
-
-        valid = i >= startDayOfMonth && (dateMoment.diff(now, 'days') < 0 || dateMoment.isSame(now, 'day'));
+        var valid = i >= startDayOfMonth && (dateMoment.diff(now, 'days') < 0 || dateMoment.isSame(now, 'day'));
 
         if (this.endDate !== null) {
           selected = (this.startDate !== null && dateMoment.diff(this.startDate, 'days') >= 0) && dateMoment.diff(this.endDate, 'days') <= 0;
