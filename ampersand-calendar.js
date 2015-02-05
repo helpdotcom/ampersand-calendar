@@ -14,7 +14,6 @@
       currentDates: 'array'
     },
     initialize: function() {
-      window.calendar = this;
       this.currentDates = this.createDateArray();
     },
     selectPreviousMonth: function() {
