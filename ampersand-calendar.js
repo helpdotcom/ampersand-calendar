@@ -165,8 +165,7 @@
       var monthLabel = month.append('text')
         .attr('class', 'ampersand-calendar-month-label')
         .attr('x', '50%')
-        .attr('y', '1.75em')
-        .text(this.model.current.format('MMMM YYYY'));
+        .attr('y', '1.75em');
 
       var monthPrevious = month.append('svg')
         .attr('class', 'ampersand-calendar-arrow ampersand-calendar-month-previous');
@@ -234,56 +233,58 @@
       this.renderCalendar();
     },
     renderCalendar: function() {
-      if (this.svg) {
-        this.svg.select('.ampersand-calendar-month-label')
-          .text(this.model.current.format('MMMM YYYY'));
-
-        var weekdaysContainer = this.svg.select('svg.ampersand-calendar-weekdays');
-
-        var weekdayContainers = weekdaysContainer.selectAll('svg.ampersand-calendar-weekday-container')
-          .data(this.model.currentDates);
-
-        weekdayContainers.exit()
-          .remove();
-
-        var weekdayContainer = weekdayContainers.enter().append('svg')
-          .attr('class', 'ampersand-calendar-weekday-container')
-          .style('overflow', 'visible');
-
-        weekdayContainer.append('circle')
-          .attr('class', 'ampersand-calendar-weekday-selected')
-          .attr('cy', '-0.25em')
-          .attr('r', '0.75em')
-          .style('opacity', 0);
-
-        weekdayContainer.append('rect')
-          .attr('class', 'ampersand-calendar-weekday-selected ampersand-calendar-weekday-selected-connector')
-          .attr('y', '-1em')
-          .attr('width', '14.28%')
-          .attr('height', '1.5em')
-          .style('display', 'none');
-
-        weekdayContainer.append('text')
-          .attr('class', 'ampersand-calendar-weekday-text');
-
-        weekdayContainers
-          .attr('x', function(d) { return (d.weekday / 7 * 100)+ '%'; })
-          .attr('y', function(d) { return (d.week * 2) + 'em'; });
-
-        weekdayContainers.select('text.ampersand-calendar-weekday-text')
-          .attr('class', function(d) {
-            var def = 'ampersand-calendar-weekday-text';
-            return d.selected ? def + ' ampersand-calendar-weekday-text-selected' : def;
-          })
-          .style('opacity', function(d) { return d.valid ? 1 : 0.25; })
-          .text(function(d) { return d.date.date() !== 0 ? d.date.date() : ''; });
-
-        weekdayContainers.select('circle.ampersand-calendar-weekday-selected')
-          .style('opacity', function(d) { return +d.selected; });
-
-        weekdayContainers.select('rect.ampersand-calendar-weekday-selected')
-          .style('display', function(d) { return (d.selected && this.model.endDate !== null && !this.model.endDate.isSame(d.date, 'days') && d.weekday !== 6) ? 'initial' : 'none'; }.bind(this));
+      if (!this.svg) {
+        return;
       }
+
+      this.svg.select('.ampersand-calendar-month-label')
+        .text(this.model.current.format('MMMM YYYY'));
+
+      var weekdaysContainer = this.svg.select('svg.ampersand-calendar-weekdays');
+
+      var weekdayContainers = weekdaysContainer.selectAll('svg.ampersand-calendar-weekday-container')
+        .data(this.model.currentDates);
+
+      weekdayContainers.exit()
+        .remove();
+
+      var weekdayContainer = weekdayContainers.enter().append('svg')
+        .attr('class', 'ampersand-calendar-weekday-container')
+        .style('overflow', 'visible');
+
+      weekdayContainer.append('circle')
+        .attr('class', 'ampersand-calendar-weekday-selected')
+        .attr('cy', '-0.25em')
+        .attr('r', '0.75em')
+        .style('opacity', 0);
+
+      weekdayContainer.append('rect')
+        .attr('class', 'ampersand-calendar-weekday-selected ampersand-calendar-weekday-selected-connector')
+        .attr('y', '-1em')
+        .attr('width', '14.28%')
+        .attr('height', '1.5em')
+        .style('display', 'none');
+
+      weekdayContainer.append('text')
+        .attr('class', 'ampersand-calendar-weekday-text');
+
+      weekdayContainers
+        .attr('x', function(d) { return (d.weekday / 7 * 100)+ '%'; })
+        .attr('y', function(d) { return (d.week * 2) + 'em'; });
+
+      weekdayContainers.select('text.ampersand-calendar-weekday-text')
+        .attr('class', function(d) {
+          var def = 'ampersand-calendar-weekday-text';
+          return d.selected ? def + ' ampersand-calendar-weekday-text-selected' : def;
+        })
+        .style('opacity', function(d) { return d.valid ? 1 : 0.25; })
+        .text(function(d) { return d.date.date() !== 0 ? d.date.date() : ''; });
+
+      weekdayContainers.select('circle.ampersand-calendar-weekday-selected')
+        .style('opacity', function(d) { return +d.selected; });
+
+      weekdayContainers.select('rect.ampersand-calendar-weekday-selected')
+        .style('display', function(d) { return (d.selected && this.model.endDate !== null && !this.model.endDate.isSame(d.date, 'days') && d.weekday !== 6) ? 'initial' : 'none'; }.bind(this));
     },
     selectPreviousMonth: function() {
       this.model.selectPreviousMonth();
