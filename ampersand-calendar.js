@@ -287,11 +287,9 @@
     },
     selectPreviousMonth: function() {
       this.model.selectPreviousMonth();
-      this.renderCalendar();
     },
     selectNextMonth: function() {
       this.model.selectNextMonth();
-      this.renderCalendar();
     },
     selectWeekday: function(event) {
       this.model.selectWeekday(event);
