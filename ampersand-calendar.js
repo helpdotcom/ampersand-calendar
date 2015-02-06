@@ -12,27 +12,24 @@
       endDate: [ 'object', false, function() { return null; } ]
     },
     session: {
-      current: [ 'object', false, function() { return moment(); } ],
-      currentDates: 'array'
+      current: [ 'object', false, function() { return moment(); } ]
     },
-    initialize: function() {
-      this.currentDates = this.createDateArray();
-
-      this.on('change:startDate', function(model) {
-        model.currentDates = model.createDateArray();
-      });
-      this.on('change:endDate', function(model) {
-        model.currentDates = model.createDateArray();
-      });
+    derived: {
+      currentDates: {
+        deps: [ 'startDate', 'endDate', 'current' ],
+        fn: function() {
+          return this.createDateArray();
+        }
+      }
     },
     selectPreviousMonth: function() {
       this.current.subtract(1, 'M');
-      this.currentDates = this.createDateArray();
+      this.trigger('change:current', this, this.current);
     },
     selectNextMonth: function() {
       if (this.current.year() < moment().year() || (this.current.year() === moment().year() && this.current.month() < moment().month())) {
         this.current.add(1, 'M');
-        this.currentDates = this.createDateArray();
+        this.trigger('change:current', this, this.current);
       }
     },
     selectWeekday: function(event) {
@@ -55,7 +52,6 @@
                 this.endDate = date;
               }
             }
-            this.currentDates = this.createDateArray();
           }
         }
       }.bind(this));
